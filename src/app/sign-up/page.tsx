@@ -2,6 +2,8 @@
 
 import DescriptionAuth from "@/components/DescriptionAuth";
 import { useState } from "react";
+import signUp from "@/firebase/auth/signUp";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -10,9 +12,24 @@ export default function SignUp() {
     username: "",
     password: "",
   });
+  const router = useRouter();
 
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const { result, error } = await signUp(formData.email, formData.password);
+
+    if (error) {
+      return console.log(error);
+    }
+
+    console.log(result);
+
+    return router.push("/");
   };
 
   return (
@@ -21,34 +38,34 @@ export default function SignUp() {
       <div className="border-[1px] max-lg:mt-[50px] p-10 m-auto mb-[50px] rounded-[10px] bg-[#DBE2EF] shadow-[5px_10px_30px_rgb(63,114,175)] max-w-[400px]">
         <h1 className="font-[600] text-[40px]">Sign Up</h1>
         <h2 className="mb-[20px]">Create an account to use Travel N Share</h2>
-        <form className="flex flex-col">
+        <form className="flex flex-col" onSubmit={handleForm}>
           <label>Email</label>
           <input
             name="email"
             type="email"
             className="mb-[20px] rounded-[10px] p-2"
-            onChange={changeHandler}
+            onChange={handleChange}
           ></input>
           <label>Full Name</label>
           <input
             name="full_name"
             type="text"
             className="mb-[20px] rounded-[10px] p-2"
-            onChange={changeHandler}
+            onChange={handleChange}
           ></input>
           <label>Username</label>
           <input
             name="username"
             type="text"
             className="mb-[20px] rounded-[10px] p-2"
-            onChange={changeHandler}
+            onChange={handleChange}
           ></input>
           <label>Password</label>
           <input
             name="password"
             type="password"
             className="mb-[30px] rounded-[10px] p-2"
-            onChange={changeHandler}
+            onChange={handleChange}
           />
           <button className="bg-[#112D4E] rounded-[10px] text-[#F9F7F7] p-2 hover:bg-[#3F72AF] mb-[20px] text-[20px]">
             Sign Up
