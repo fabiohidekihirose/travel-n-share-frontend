@@ -1,4 +1,5 @@
 import "./globals.css";
+import { AuthContextProvider } from "@/components/AuthContext";
 
 export const metadata = {
   title: "Travel N Share",
@@ -12,7 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full bg-[#112D4E]">
-      <body className="h-full">{children}</body>
+      <body className="h-full">
+        <AuthContextProvider>{children}</AuthContextProvider>
+      </body>
     </html>
   );
 }

@@ -1,13 +1,22 @@
 "use client";
 
 import DescriptionAuth from "@/components/DescriptionAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import signIn from "@/firebase/auth/signIn";
 import { useRouter } from "next/navigation";
+import { useAuthContext } from "@/components/AuthContext";
 
-export default function Home() {
+export default function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+  const userObj = useAuthContext();
   const router = useRouter();
+
+  useEffect(() => {
+    if (userObj.user) {
+      router.push("/home");
+    }
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,14 +25,15 @@ export default function Home() {
   const handleForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { result, error } = await signIn(formData.email, formData.password);
+    const result = await signIn(formData.email, formData.password);
 
     if (error) {
+      setError(error);
       return console.log(error);
     }
 
     console.log(result);
-    router.push("/feed");
+    router.push("/home");
   };
 
   return (
