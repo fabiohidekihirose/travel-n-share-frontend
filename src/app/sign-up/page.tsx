@@ -4,6 +4,7 @@ import DescriptionAuth from "@/components/DescriptionAuth";
 import { useState } from "react";
 import signUp from "@/firebase/auth/signUp";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ export default function SignUp() {
     password: "",
   });
   const router = useRouter();
+  const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,11 +27,18 @@ export default function SignUp() {
 
     if (error) {
       return console.log(error);
+    } else {
+      const payload = {
+        id: result?.user.uid,
+        email: formData.email,
+        full_name: formData.full_name,
+        username: formData.username,
+        image: "/images/profile-default.png",
+      };
+      await axios.post(`${baseURL}/register`, payload);
+      console.log(result);
+      router.push("/");
     }
-
-    console.log(result);
-
-    return router.push("/");
   };
 
   return (

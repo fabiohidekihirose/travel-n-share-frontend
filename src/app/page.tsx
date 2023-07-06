@@ -30,10 +30,10 @@ export default function Login() {
     if (error) {
       setError(error);
       return console.log(error);
+    } else {
+      console.log(result);
+      router.push("/home");
     }
-
-    console.log(result);
-    router.push("/home");
   };
 
   return (
