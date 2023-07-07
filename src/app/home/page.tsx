@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import { PiNewspaperLight } from "react-icons/pi";
 import { MdOutlineFavoriteBorder, MdOutlineExplore } from "react-icons/md";
 import Feed from "./components/Feed";
+import FollowPage from "./components/FollowPage";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -33,14 +34,15 @@ export default function Home() {
   useEffect(() => {
     if (!userObj.user) {
       router.push("/");
-    }
-    (async () => {
-      const userId = userObj.user.uid;
+    } else {
+      const getUserInfo = async () => {
+        const userId = userObj.user.uid;
 
-      const user = await axios.get(`${baseURL}/user/${userId}`);
-      console.log(user);
-      setCurrUser(user.data);
-    })();
+        const user = await axios.get(`${baseURL}/user/${userId}`);
+        setCurrUser(user.data);
+      };
+      getUserInfo();
+    }
   }, []);
 
   return (
@@ -108,6 +110,9 @@ export default function Home() {
             </div>
           </div>
           {(currPage === "feed" || !currPage) && <Feed />}
+          {(currPage === "followers" || currPage === "following") && (
+            <FollowPage />
+          )}
         </div>
       )}
     </div>
