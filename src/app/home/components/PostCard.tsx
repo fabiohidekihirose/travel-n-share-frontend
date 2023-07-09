@@ -5,20 +5,20 @@ interface UserProps {
   image: string;
 }
 
-interface PostProps {
+export interface PostProps {
   id: number;
   user: UserProps;
   content: string;
   favorite: [];
 }
 
-interface PostCardProps {
+export interface PostCardProps {
   post: PostProps;
 }
 
 export default function PostCard({ post }: PostCardProps) {
   return (
-    <div className="flex flex-col space-y-[10px] bg-[#DBE2EF] p-6 rounded-[10px]">
+    <div className="flex flex-col space-y-[10px] bg-[#DBE2EF] p-6 pb-4 rounded-[10px]">
       <div className="flex items-center space-x-[10px]">
         <img
           src={post.user.image}
@@ -34,7 +34,7 @@ export default function PostCard({ post }: PostCardProps) {
       <div className="whitespace-pre-wrap">{post.content}</div>
       <div className="border-b-[1px] border-[#112D4E]"></div>
       <div className="w-full flex">
-        <button className="w-[50%] flex items-center justify-center">
+        <button className="w-[50%] flex items-center justify-center hover:bg-[#112D4E] hover:text-[#DBE2EF] rounded-[10px] p-2">
           <MdOutlineFavoriteBorder className="mr-[10px]" />
           {`${post.favorite.length} Favorites`}
         </button>
