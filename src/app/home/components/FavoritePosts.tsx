@@ -1,3 +1,5 @@
+"use client";
+
 import axios from "axios";
 import PostCard, { PostCardProps } from "./PostCard";
 import { useEffect, useState } from "react";
@@ -23,10 +25,19 @@ export default function FavoritePosts() {
 
   return (
     <>
-      {favPosts.length &&
+      {favPosts.length ? (
         favPosts.map((favPost: PostCardProps) => (
-          <PostCard post={favPost.post} />
-        ))}
+          <PostCard
+            key={favPost.post.id}
+            post={favPost.post}
+            isFavorite={true}
+          />
+        ))
+      ) : (
+        <div className="text-center p-4 rounded-[10px] bg-[#DBE2EF] w-full text-[#112D4E]">
+          No Favorite Posts Yet
+        </div>
+      )}
     </>
   );
 }

@@ -33,8 +33,6 @@ export default function Home() {
   const userObj = useAuthContext();
   const router = useRouter();
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
-  const classNameForCenterBox =
-    "w-[800px] h-[85.5vh] rounded-[10px] mt-[30px] overflow-y-scroll text-[#112D4E] space-y-[20px]";
 
   useEffect(() => {
     if (!userObj.user) {
@@ -48,11 +46,15 @@ export default function Home() {
       };
       getUserInfo();
     }
-  }, []);
+  }, [currPage]);
 
   return (
     <div className="h-full bg-[#112D4E]">
-      <Header setShowSideMenu={setShowSideMenu} showSideMenu={showSideMenu} />
+      <Header
+        setShowSideMenu={setShowSideMenu}
+        showSideMenu={showSideMenu}
+        profile={currUser?.image}
+      />
       {showSideMenu && <SideMenu />}
       {currUser && (
         <div className="flex">
@@ -64,7 +66,9 @@ export default function Home() {
                   className="rounded-[50%] w-[70px]"
                 ></img>
                 <div>
-                  <p className="font-[700]">{currUser.full_name}</p>
+                  <Link href={"/profile"} className="font-[700]">
+                    {currUser.full_name}
+                  </Link>
                   <p className="font-[500]">{currUser.username}</p>
                 </div>
               </div>
@@ -100,13 +104,13 @@ export default function Home() {
                 <PiNewspaperLight size={25} />
                 <p className="text-[20px]">Feed</p>
               </Link>
-              <Link
+              {/* <Link
                 href={"/home?page=explore"}
                 className="flex space-x-[10px] items-center border-[1px] border-[#112D4E] hover:border-[#DBE2EF] hover:shadow-[0_0_10px_rgb(219,226,239)] px-4 py-2 rounded-[10px] hover:bg-[#DBE2EF] text-[#DBE2EF] hover:text-[#112D4E] hover:fill-[#112D4E]"
               >
                 <MdOutlineExplore size={25} />
                 <p className="text-[20px]">Explore</p>
-              </Link>
+              </Link> */}
               <Link
                 href={"/home?page=my-posts"}
                 className="flex space-x-[10px] items-center border-[1px] border-[#112D4E] hover:border-[#DBE2EF] hover:shadow-[0_0_10px_rgb(219,226,239)] px-4 py-2 rounded-[10px] hover:bg-[#DBE2EF] text-[#DBE2EF] hover:text-[#112D4E] hover:fill-[#112D4E]"
@@ -123,7 +127,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="w-[800px] h-[85.5vh] rounded-[10px] mt-[30px] overflow-y-scroll text-[#112D4E] space-y-[20px]">
+          <div className="grow h-[85.5vh] rounded-[10px] mt-[30px] overflow-y-scroll text-[#112D4E] space-y-[20px] mr-[30px]">
             {(currPage === "feed" || !currPage) && <Feed />}
             {(currPage === "followers" || currPage === "following") && (
               <FollowPage />

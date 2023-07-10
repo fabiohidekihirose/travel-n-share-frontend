@@ -4,6 +4,10 @@ import { useAuthContext } from "@/components/AuthContext";
 import PostCard from "./PostCard";
 import { PostProps } from "./PostCard";
 
+interface FavProps {
+  user_id: string;
+}
+
 export default function Posts() {
   const [posts, setPosts] = useState([]);
   const userObj = useAuthContext();
@@ -24,7 +28,18 @@ export default function Posts() {
     <>
       {posts &&
         posts.map((post: PostProps) => {
-          return <PostCard key={post.id} post={post} />;
+          const userId = userObj.user.uid;
+          return (
+            <PostCard
+              key={post.id}
+              post={post}
+              isFavorite={
+                !!post.favorite.filter(
+                  (favorite: FavProps) => favorite.user_id === userId
+                ).length
+              }
+            />
+          );
         })}
     </>
   );
