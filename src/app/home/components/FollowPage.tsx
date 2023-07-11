@@ -62,7 +62,7 @@ export default function FollowPage() {
   return (
     <div
       key={"follow"}
-      className="h-full rounded-[10px] pt-6 px-6 overflow-y-scroll text-[#DBE2EF] space-y-[20px] bg-[#DBE2EF]"
+      className="h-full rounded-[10px] p-6 overflow-y-scroll text-[#DBE2EF] space-y-[20px] bg-[#DBE2EF]"
     >
       {follow === "followers" ? (
         followerUsers.length ? (
@@ -89,7 +89,7 @@ export default function FollowPage() {
         followingUsers.map((user: FollowingUserProps) => (
           <div
             key={user.user_ed.id}
-            className="flex bg-[#112D4E] p-4 rounded-[10px] shadow-[0_0_10px_rgb(17,45,78)] justify-between"
+            className="flex bg-[#112D4E] p-4 rounded-[10px] shadow-[0_0_20px_rgb(17,45,78)] justify-between"
           >
             <FollowCard
               image={user.user_ed.image}

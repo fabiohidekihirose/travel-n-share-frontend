@@ -31,7 +31,7 @@ export default function Header({
       /> */}
       <img
         src={profile}
-        className="w-[40px] rounded-[50%] mr-[40px] hover:cursor-pointer"
+        className="w-[40px] rounded-[50%] mr-[40px] hover:cursor-pointer shadow-[0_0_10px_rgb(219,226,239)]"
         onClick={clickHandler}
       ></img>
     </div>
