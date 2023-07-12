@@ -5,6 +5,8 @@ import axios from "axios";
 import { useState } from "react";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { LuTrash } from "react-icons/lu";
+import Link from "next/link";
+import moment from "moment";
 
 interface UserProps {
   id: string;
@@ -16,6 +18,7 @@ export interface PostProps {
   id: number;
   user: UserProps;
   content: string;
+  timestamp: Date;
   favorite: [];
 }
 
@@ -68,8 +71,15 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
             className="rounded-[50%] w-[50px] border-[2px] border-[#112D4E]"
           />
           <div className="flex flex-col">
-            <p className="font-[700]">{post.user.username}</p>
-            <p>TimeStamp</p>
+            <Link
+              href={`/home?page=profile&user_id=${post.user.id}`}
+              className="font-[700] text-[18px]"
+            >
+              {post.user.username}
+            </Link>
+            <p className="font-[300] text-[12px]">
+              {moment(post.timestamp).format("MMMM Do YYYY, h:mm a")}
+            </p>
           </div>
         </div>
         {userObj.user.uid === post.user.id && (

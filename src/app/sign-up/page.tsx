@@ -34,6 +34,7 @@ export default function SignUp() {
         full_name: formData.full_name,
         username: formData.username,
         image: "/images/profile-default.png",
+        bio: "",
       };
       await axios.post(`${baseURL}/register`, payload);
       console.log(result);
