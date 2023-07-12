@@ -4,9 +4,11 @@ import { CgProfile } from "react-icons/cg";
 import { AiOutlineSetting } from "react-icons/ai";
 import logOut from "@/firebase/auth/logOut";
 import { useRouter } from "next/navigation";
+import { useAuthContext } from "@/components/AuthContext";
 
 export default function SideMenu() {
   const router = useRouter();
+  const userObj = useAuthContext();
 
   const logoutHandler = async () => {
     await logOut();
@@ -15,9 +17,9 @@ export default function SideMenu() {
   };
 
   return (
-    <div className="absolute right-[20px] bg-[#DBE2EF] text-[#112D4E] rounded-[10px] p-4 space-y-[10px] shadow-[0_0_10px_rgb(63,114,175)]">
+    <div className="fixed right-[20px] top-[60px] bg-[#DBE2EF] text-[#112D4E] rounded-[10px] p-4 space-y-[10px] shadow-[0_0_10px_rgb(63,114,175)]">
       <Link
-        href={"/profile"}
+        href={`/home?page=profile&user_id=${userObj.user.uid}`}
         className="flex space-x-[10px] items-center hover:bg-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] px-4 py-2 rounded-[10px]"
       >
         <CgProfile size={25} />

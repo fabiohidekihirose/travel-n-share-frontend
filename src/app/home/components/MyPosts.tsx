@@ -4,7 +4,7 @@ import { useAuthContext } from "@/components/AuthContext";
 import PostCard from "./PostCard";
 import { PostProps } from "./PostCard";
 
-interface FavProps {
+export interface FavProps {
   user_id: string;
 }
 

@@ -1,9 +1,12 @@
 "use client";
 
 import Header from "@/components/Header";
-import { PiNewspaperLight } from "react-icons/pi";
 import { MdOutlineFavoriteBorder, MdOutlineExplore } from "react-icons/md";
-import { BsJournalRichtext, BsJournalPlus } from "react-icons/bs";
+import {
+  BsJournalRichtext,
+  BsJournalPlus,
+  BsJournalText,
+} from "react-icons/bs";
 import Feed from "./components/Feed";
 import FollowPage from "./components/FollowPage";
 import MyPosts from "./components/MyPosts";
@@ -16,8 +19,9 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import FavoritePosts from "./components/FavoritePosts";
 import NewPost from "./components/NewPost";
+import ProfilePage from "./components/ProfilePage";
 
-interface User {
+export interface UserProps {
   full_name: string;
   username: string;
   image: string;
@@ -28,7 +32,7 @@ interface User {
 
 export default function Home() {
   const [showSideMenu, setShowSideMenu] = useState(false);
-  const [currUser, setCurrUser] = useState<User | null>(null);
+  const [currUser, setCurrUser] = useState<UserProps | null>(null);
   const searchParams = useSearchParams();
   const currPage = searchParams.get("page");
   const userObj = useAuthContext();
@@ -50,7 +54,10 @@ export default function Home() {
   }, [currPage]);
 
   return (
-    <div className="h-full bg-[#112D4E]">
+    <div
+      className="h-full bg-[#112D4E]"
+      onClick={() => (showSideMenu ? setShowSideMenu(false) : null)}
+    >
       <Header
         setShowSideMenu={setShowSideMenu}
         showSideMenu={showSideMenu}
@@ -59,18 +66,21 @@ export default function Home() {
       {showSideMenu && <SideMenu />}
       {currUser && (
         <div className="flex">
-          <div className="flex flex-col w-[300px] m-[30px]">
-            <div className="bg-[#DBE2EF] h-fit p-4 rounded-[10px] space-y-[20px] w-[300px] shadow-[0_0_20px_rgb(63,114,175)] text-[#112D4E]">
+          <div className="flex flex-col w-[300px] m-[32px] mt-[102px] space-y-[30px] fixed">
+            <div className="bg-[#DBE2EF] h-fit p-4 rounded-[10px] space-y-[20px] w-[300px] shadow-[0_0_10px_rgb(219,226,239)] text-[#112D4E]">
               <div className="flex items-center space-x-[10px]">
                 <img
                   src={currUser.image}
                   className="rounded-[50%] w-[70px] border-[2px] border-[#112D4E]"
                 ></img>
                 <div>
-                  <Link href={"/profile"} className="font-[700]">
+                  <Link
+                    href={`/home?page=profile&user_id=${userObj.user.uid}`}
+                    className="font-[700] text-[20px]"
+                  >
                     {currUser.full_name}
                   </Link>
-                  <p className="font-[500]">{currUser.username}</p>
+                  <p className="font-[200]">@{currUser.username}</p>
                 </div>
               </div>
               <div className="flex justify-between px-2">
@@ -78,31 +88,37 @@ export default function Home() {
                   href={"/home?page=followers"}
                   className="text-center border-b-[3px] border-[#DBE2EF] hover:border-[#112D4E]"
                 >
-                  <p className="font-[700]">{currUser.followers.length}</p>
-                  <p>Followers</p>
+                  <p className="font-[700] text-[20px]">
+                    {currUser.followers.length}
+                  </p>
+                  <p className="font-[200]">Followers</p>
                 </Link>
                 <Link
                   href={"/home?page=following"}
                   className="text-center border-b-[3px] border-[#DBE2EF] hover:border-[#112D4E]"
                 >
-                  <p className="font-[700]">{currUser.following.length}</p>
-                  <p>Following</p>
+                  <p className="font-[700] text-[20px]">
+                    {currUser.following.length}
+                  </p>
+                  <p className="font-[200]">Following</p>
                 </Link>
                 <Link
                   href={"/home?page=my-posts"}
                   className="text-center border-b-[3px] border-[#DBE2EF] hover:border-[#112D4E]"
                 >
-                  <p className="font-[700]">{currUser.posts.length}</p>
-                  <p>Posts</p>
+                  <p className="font-[700] text-[20px]">
+                    {currUser.posts.length}
+                  </p>
+                  <p className="font-[200]">Posts</p>
                 </Link>
               </div>
             </div>
-            <div className="flex flex-col p-4 pt-8 space-y-[10px]">
+            <div className="flex flex-col p-4 space-y-[10px] bg-[#DBE2EF] rounded-[10px] shadow-[0_0_10px_rgb(219,226,239)]">
               <Link
                 href={"/home?page=feed"}
-                className="flex space-x-[10px] items-center border-[1px] border-[#112D4E] hover:border-[#DBE2EF] hover:shadow-[0_0_10px_rgb(219,226,239)] px-4 py-2 rounded-[10px] hover:bg-[#DBE2EF] text-[#DBE2EF] hover:text-[#112D4E] hover:fill-[#112D4E]"
+                className="flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)]"
               >
-                <PiNewspaperLight size={25} />
+                <BsJournalText size={25} />
                 <p className="text-[20px]">Feed</p>
               </Link>
               {/* <Link
@@ -114,35 +130,36 @@ export default function Home() {
               </Link> */}
               <Link
                 href={"/home?page=new-post"}
-                className="flex space-x-[10px] items-center border-[1px] border-[#112D4E] hover:border-[#DBE2EF] hover:shadow-[0_0_10px_rgb(219,226,239)] px-4 py-2 rounded-[10px] hover:bg-[#DBE2EF] text-[#DBE2EF] hover:text-[#112D4E] hover:fill-[#112D4E]"
+                className="flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)]"
               >
                 <BsJournalPlus size={25} />
                 <p className="text-[20px]">New Post</p>
               </Link>
               <Link
                 href={"/home?page=my-posts"}
-                className="flex space-x-[10px] items-center border-[1px] border-[#112D4E] hover:border-[#DBE2EF] hover:shadow-[0_0_10px_rgb(219,226,239)] px-4 py-2 rounded-[10px] hover:bg-[#DBE2EF] text-[#DBE2EF] hover:text-[#112D4E] hover:fill-[#112D4E]"
+                className="flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)]"
               >
                 <BsJournalRichtext size={25} />
                 <p className="text-[20px]">My Posts</p>
               </Link>
               <Link
                 href={"/home?page=favorite"}
-                className="flex space-x-[10px] items-center border-[1px] border-[#112D4E] hover:border-[#DBE2EF] hover:shadow-[0_0_10px_rgb(219,226,239)] px-4 py-2 rounded-[10px] hover:bg-[#DBE2EF] text-[#DBE2EF] hover:text-[#112D4E] hover:fill-[#112D4E]"
+                className="flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)]"
               >
                 <MdOutlineFavoriteBorder size={25} />
                 <p className="text-[20px]">Favorite</p>
               </Link>
             </div>
           </div>
-          <div className="grow h-[85.5vh] mt-[30px] overflow-y-scroll text-[#112D4E] space-y-[20px] mr-[30px]">
+          <div className="w-full h-[90.5vh] mt-[70px] ml-[364px] text-[#112D4E] space-y-[20px] mr-[30px] p-2 pt-8">
             {(currPage === "feed" || !currPage) && <Feed />}
             {(currPage === "followers" || currPage === "following") && (
               <FollowPage />
             )}
             {currPage === "my-posts" && <MyPosts />}
             {currPage === "favorite" && <FavoritePosts />}
-            {currPage === "new-post" && <NewPost />}
+            {currPage === "new-post" && <NewPost currUser={currUser} />}
+            {currPage === "profile" && <ProfilePage />}
           </div>
         </div>
       )}

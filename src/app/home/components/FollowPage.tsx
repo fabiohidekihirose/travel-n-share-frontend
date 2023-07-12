@@ -51,7 +51,6 @@ export default function FollowPage() {
           `${baseURL}/user/${userId}/following`
         );
 
-        console.log(followingData.data);
         setFollowingUsers(followingData.data);
       }
     };
@@ -62,7 +61,7 @@ export default function FollowPage() {
   return (
     <div
       key={"follow"}
-      className="h-full rounded-[10px] p-6 overflow-y-scroll text-[#DBE2EF] space-y-[20px] bg-[#DBE2EF]"
+      className="w-full h-full rounded-[10px] p-6 overflow-y-scroll text-[#DBE2EF] space-y-[20px] bg-[#DBE2EF]"
     >
       {follow === "followers" ? (
         followerUsers.length ? (

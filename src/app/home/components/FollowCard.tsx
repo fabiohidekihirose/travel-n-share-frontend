@@ -3,6 +3,7 @@
 import { useAuthContext } from "@/components/AuthContext";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 interface FollowCardProps {
@@ -43,7 +44,7 @@ export default function FollowCard({
 
   return (
     <>
-      <div className="flex">
+      <Link href={`/home?page=profile&user_id=${user_id}`} className="flex">
         <Image
           src={image}
           width={50}
@@ -53,9 +54,9 @@ export default function FollowCard({
         ></Image>
         <div className="ml-[10px]">
           <p className="font-[700]">{full_name}</p>
-          <p>{username}</p>
+          <p>@{username}</p>
         </div>
-      </div>
+      </Link>
       <button
         className="bg-[#DBE2EF] text-[#112D4E] px-4 rounded-[10px] hover:shadow-[0_0_10px_rgb(219,226,239)]"
         onClick={followButtonHandler}
