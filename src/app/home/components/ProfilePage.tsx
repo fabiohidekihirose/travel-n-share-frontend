@@ -2,17 +2,28 @@ import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { UserProps } from "../page";
-import { PostProps } from "./PostCard";
-import { FavProps } from "./MyPosts";
-import PostCard from "./PostCard";
+import { FollowProps } from "../page";
+import { useAuthContext } from "@/components/AuthContext";
 import Link from "next/link";
+import UserPosts from "./UserPosts";
+import FollowPage from "./FollowPage";
+import FollowButton from "@/components/FollowButton";
 
-export default function ProfilePage() {
+interface ProfilePageProps {
+  followingUsers: FollowProps[];
+}
+
+export default function ProfilePage({ followingUsers }: ProfilePageProps) {
   const [userInfo, setUserInfo] = useState<UserProps | null>(null);
   const [userPosts, setUserPosts] = useState([]);
+  const [followingIds, setFollowingIds] = useState(
+    followingUsers.map((user) => user.user_id_ed)
+  );
   const searchParams = useSearchParams();
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
+  const userObj = useAuthContext();
   const user_id = searchParams.get("user_id");
+  const section = searchParams.get("section");
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -29,23 +40,41 @@ export default function ProfilePage() {
 
     getPosts();
     getUserInfo();
-  }, []);
+  }, [user_id]);
 
   return (
     <>
       {userInfo && (
-        <div className="w-full bg-[#DBE2EF] rounded-[10px] p-6 items-center flex flex-col shadow-[0_0_10px_rgb(219,226,239)] space-y-[20px] ">
-          <img
-            src={userInfo.image}
-            className="w-[130px] rounded-[50%] border-[2px] border-[#112D4E] shadow-[0_0_10px_rgb(17,45,78)]"
-          ></img>
-          <div className="text-center">
-            <p className="font-[700] text-[30px]">{userInfo.full_name}</p>
-            <p className="font-[300]">@{userInfo.username}</p>
+        <div className="w-full bg-[#DBE2EF] rounded-[10px] p-6 items-center flex flex-col shadow-[0_0_10px_rgb(219,226,239)] space-y-[20px]">
+          <div className="flex space-x-[20px] items-center">
+            <img
+              src={userInfo.image}
+              className="w-[130px] rounded-[50%] border-[2px] border-[#112D4E] shadow-[0_0_10px_rgb(17,45,78)]"
+            ></img>
+            <div>
+              <p className="font-[700] text-[30px]">{userInfo.full_name}</p>
+              <p className="font-[300]">@{userInfo.username}</p>
+            </div>
+
+            {userObj.user.uid === user_id ? (
+              <Link
+                href={"/edit-profile"}
+                className="bg-[#112D4E] text-[#DBE2EF] p-2 rounded-[10px] hover:shadow-[0_0_10px_rgb(63,114,175)] hover:bg-[#3F72AF]"
+              >
+                Edit profile
+              </Link>
+            ) : (
+              <FollowButton
+                classType="profile"
+                user_id={user_id}
+                isFollowed={!!(user_id && followingIds.includes(user_id))}
+              />
+            )}
           </div>
+          <div className="w-[500px]">{userInfo.bio}</div>
           <div className="w-[300px] flex justify-between px-2">
             <Link
-              href={"/home?page=followers"}
+              href={`/home?page=profile&user_id=${user_id}&section=followers`}
               className="text-center border-b-[3px] border-[#DBE2EF] hover:border-[#112D4E]"
             >
               <p className="font-[700] text-[20px]">
@@ -54,7 +83,7 @@ export default function ProfilePage() {
               <p className="font-[300]">Followers</p>
             </Link>
             <Link
-              href={"/home?page=following"}
+              href={`/home?page=profile&user_id=${user_id}&section=following`}
               className="text-center border-b-[3px] border-[#DBE2EF] hover:border-[#112D4E]"
             >
               <p className="font-[700] text-[20px]">
@@ -63,7 +92,7 @@ export default function ProfilePage() {
               <p className="font-[300]">Following</p>
             </Link>
             <Link
-              href={"/home?page=my-posts"}
+              href={`/home?page=profile&user_id=${user_id}&section=posts`}
               className="text-center border-b-[3px] border-[#DBE2EF] hover:border-[#112D4E]"
             >
               <p className="font-[700] text-[20px]">{userInfo.posts.length}</p>
@@ -72,18 +101,10 @@ export default function ProfilePage() {
           </div>
         </div>
       )}
-      {userPosts &&
-        userPosts.map((post: PostProps) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            isFavorite={
-              !!post.favorite.filter(
-                (favorite: FavProps) => favorite.user_id === user_id
-              ).length
-            }
-          />
-        ))}
+      {(!section || section === "posts") && (
+        <UserPosts userPosts={userPosts} user_id={user_id} />
+      )}
+      {(section === "following" || section === "followers") && <FollowPage />}
     </>
   );
 }

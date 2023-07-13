@@ -1,7 +1,6 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuthContext } from "@/components/AuthContext";
 import FollowCard from "./FollowCard";
 
 interface FollowPageUserProps {
@@ -24,20 +23,20 @@ export default function FollowPage() {
   const [followingUsers, setFollowingUsers] = useState([]);
   const [followingIds, setFollowingIds] = useState([]);
   const searchParams = useSearchParams();
-  const follow = searchParams.get("page");
+  const section = searchParams.get("section");
+  const user_id = searchParams.get("user_id");
+  const curr_page = searchParams.get("page");
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
-  const userObj = useAuthContext();
 
   useEffect(() => {
     const getFollows = async () => {
-      const userId = userObj.user.uid;
-      if (follow === "followers") {
+      if (section === "followers" || curr_page === "followers") {
         const followersData = await axios.get(
-          `${baseURL}/user/${userId}/followers`
+          `${baseURL}/user/${user_id}/followers`
         );
 
         const followingData = await axios.get(
-          `${baseURL}/user/${userId}/following`
+          `${baseURL}/user/${user_id}/following`
         );
 
         const followingIds = followingData.data.map(
@@ -48,7 +47,7 @@ export default function FollowPage() {
         setFollowingIds(followingIds);
       } else {
         const followingData = await axios.get(
-          `${baseURL}/user/${userId}/following`
+          `${baseURL}/user/${user_id}/following`
         );
 
         setFollowingUsers(followingData.data);
@@ -56,14 +55,11 @@ export default function FollowPage() {
     };
 
     getFollows();
-  }, [follow]);
+  }, [section, curr_page]);
 
   return (
-    <div
-      key={"follow"}
-      className="w-full h-full rounded-[10px] p-6 overflow-y-scroll text-[#DBE2EF] space-y-[20px] bg-[#DBE2EF]"
-    >
-      {follow === "followers" ? (
+    <div className="w-full rounded-[10px] p-6 text-[#DBE2EF] space-y-[20px] bg-[#DBE2EF] shadow-[0_0_10px_rgb(219,226,239)]">
+      {section === "followers" || curr_page === "followers" ? (
         followerUsers.length ? (
           followerUsers.map((user: FollowerUserProps) => (
             <div
@@ -82,7 +78,9 @@ export default function FollowPage() {
             </div>
           ))
         ) : (
-          <div>No followers yet</div>
+          <div className="text-center p-4 text-[20px] text-[#112D4E]">
+            No followers yet
+          </div>
         )
       ) : followingUsers.length ? (
         followingUsers.map((user: FollowingUserProps) => (
@@ -100,7 +98,7 @@ export default function FollowPage() {
           </div>
         ))
       ) : (
-        <div>No followers yet</div>
+        <div>Not following users yet</div>
       )}
     </div>
   );

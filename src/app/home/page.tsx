@@ -25,9 +25,14 @@ export interface UserProps {
   full_name: string;
   username: string;
   image: string;
+  bio: string;
   posts: {}[];
-  followers: {}[];
-  following: {}[];
+  followers: FollowProps[];
+  following: FollowProps[];
+}
+
+export interface FollowProps {
+  user_id_ed: string;
 }
 
 export default function Home() {
@@ -36,6 +41,7 @@ export default function Home() {
   const searchParams = useSearchParams();
   const currPage = searchParams.get("page");
   const userObj = useAuthContext();
+  const [userId, setUserId] = useState(userObj.user.uid);
   const router = useRouter();
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -44,14 +50,12 @@ export default function Home() {
       router.push("/");
     } else {
       const getUserInfo = async () => {
-        const userId = userObj.user.uid;
-
         const user = await axios.get(`${baseURL}/user/${userId}`);
         setCurrUser(user.data);
       };
       getUserInfo();
     }
-  }, [currPage]);
+  }, [currPage, userObj]);
 
   return (
     <div
@@ -75,7 +79,7 @@ export default function Home() {
                 ></img>
                 <div>
                   <Link
-                    href={`/home?page=profile&user_id=${userObj.user.uid}`}
+                    href={`/home?page=profile&user_id=${userId}&section=posts`}
                     className="font-[700] text-[20px]"
                   >
                     {currUser.full_name}
@@ -85,7 +89,7 @@ export default function Home() {
               </div>
               <div className="flex justify-between px-2">
                 <Link
-                  href={"/home?page=followers"}
+                  href={`/home?page=followers&user_id=${userId}`}
                   className="text-center border-b-[3px] border-[#DBE2EF] hover:border-[#112D4E]"
                 >
                   <p className="font-[700] text-[20px]">
@@ -94,7 +98,7 @@ export default function Home() {
                   <p className="font-[200]">Followers</p>
                 </Link>
                 <Link
-                  href={"/home?page=following"}
+                  href={`/home?page=following&user_id=${userId}`}
                   className="text-center border-b-[3px] border-[#DBE2EF] hover:border-[#112D4E]"
                 >
                   <p className="font-[700] text-[20px]">
@@ -151,15 +155,19 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="w-full h-[90.5vh] mt-[70px] ml-[364px] text-[#112D4E] space-y-[20px] mr-[30px] p-2 pt-8">
-            {(currPage === "feed" || !currPage) && <Feed />}
+          <div className="w-full mt-[70px] ml-[364px] text-[#112D4E] space-y-[20px] mr-[30px] p-2 pt-8">
+            {(currPage === "feed" || !currPage) && (
+              <Feed followingUsers={currUser.following} />
+            )}
             {(currPage === "followers" || currPage === "following") && (
               <FollowPage />
             )}
             {currPage === "my-posts" && <MyPosts />}
             {currPage === "favorite" && <FavoritePosts />}
             {currPage === "new-post" && <NewPost currUser={currUser} />}
-            {currPage === "profile" && <ProfilePage />}
+            {currPage === "profile" && (
+              <ProfilePage followingUsers={currUser.following} />
+            )}
           </div>
         </div>
       )}
