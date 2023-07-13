@@ -29,7 +29,6 @@ export default function Login() {
       setError(error);
       return console.log(error);
     } else {
-      console.log(result);
       router.push("/home");
     }
   };
@@ -39,7 +38,7 @@ export default function Login() {
       {userObj.user ? null : (
         <>
           <DescriptionAuth />
-          <div className="border-[1px] max-lg:mt-[50px] p-10 m-auto rounded-[10px] bg-[#DBE2EF] shadow-[5px_10px_30px_rgb(63,114,175)] max-w-[400px]">
+          <div className="border-[1px] max-lg:mt-[50px] p-10 m-auto rounded-[10px] bg-[#DBE2EF] shadow-[0_0_30px_rgb(63,114,175)] max-w-[400px]">
             <h1 className="font-[600] text-[40px]">Welcome Back!</h1>
             <h2 className="mb-[20px]">Please, enter your details to login</h2>
             <form className="flex flex-col" onSubmit={handleForm}>
@@ -63,7 +62,7 @@ export default function Login() {
               >
                 Forgot your password?
               </a>
-              <button className="bg-[#112D4E] rounded-[10px] text-[#F9F7F7] p-2 hover:bg-[#3F72AF] mb-[20px] text-[20px]">
+              <button className="bg-[#112D4E] rounded-[10px] text-[#F9F7F7] p-2 hover:bg-[#3F72AF] mb-[20px] text-[20px] hover:shadow-[0_0_10px_rgb(63,114,175)]">
                 Login
               </button>
             </form>

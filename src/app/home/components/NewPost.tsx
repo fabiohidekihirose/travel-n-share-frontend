@@ -17,6 +17,7 @@ export default function NewPost({ currUser }: NewPostProps) {
     const payload = {
       user_id: userObj.user.uid,
       content: event.currentTarget.content.value,
+      timestamp: new Date(),
     };
 
     event.currentTarget.content.value = "";
@@ -54,7 +55,7 @@ export default function NewPost({ currUser }: NewPostProps) {
           rows={10}
           name="content"
         ></textarea>
-        <button className="bg-[#112D4E] text-[#DBE2EF] rounded-[10px] p-2 hover:shadow-[0_0_10px_rgb(17,45,78)] font-[600] text-[20px]">
+        <button className="bg-[#112D4E] text-[#DBE2EF] rounded-[10px] p-2 hover:shadow-[0_0_10px_rgb(17,45,78)] font-[600] text-[20px] hover:shadow-[0_0_10px_rgb(63,114,175)] hover:bg-[#3F72AF]">
           Post
         </button>
       </form>

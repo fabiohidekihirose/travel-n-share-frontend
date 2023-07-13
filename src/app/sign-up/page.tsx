@@ -37,7 +37,7 @@ export default function SignUp() {
         bio: "",
       };
       await axios.post(`${baseURL}/register`, payload);
-      console.log(result);
+
       router.push("/");
     }
   };
