@@ -20,8 +20,10 @@ import axios from "axios";
 import FavoritePosts from "./components/FavoritePosts";
 import NewPost from "./components/NewPost";
 import ProfilePage from "./components/ProfilePage";
+import EditAccount from "./components/EditAccount";
 
 export interface UserProps {
+  email: string;
   full_name: string;
   username: string;
   image: string;
@@ -41,7 +43,6 @@ export default function Home() {
   const searchParams = useSearchParams();
   const currPage = searchParams.get("page");
   const userObj = useAuthContext();
-  const [userId, setUserId] = useState(userObj.user.uid);
   const router = useRouter();
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -50,7 +51,7 @@ export default function Home() {
       router.push("/");
     } else {
       const getUserInfo = async () => {
-        const user = await axios.get(`${baseURL}/user/${userId}`);
+        const user = await axios.get(`${baseURL}/user/${userObj.user.uid}`);
         setCurrUser(user.data);
       };
       getUserInfo();
@@ -79,7 +80,7 @@ export default function Home() {
                 ></img>
                 <div>
                   <Link
-                    href={`/home?page=profile&user_id=${userId}&section=posts`}
+                    href={`/home?page=profile&user_id=${userObj.user.uid}&section=posts`}
                     className="font-[700] text-[20px]"
                   >
                     {currUser.full_name}
@@ -89,7 +90,7 @@ export default function Home() {
               </div>
               <div className="flex justify-between px-2">
                 <Link
-                  href={`/home?page=followers&user_id=${userId}`}
+                  href={`/home?page=followers&user_id=${userObj.user.uid}`}
                   className="text-center border-b-[3px] border-[#DBE2EF] hover:border-[#112D4E]"
                 >
                   <p className="font-[700] text-[20px]">
@@ -98,7 +99,7 @@ export default function Home() {
                   <p className="font-[200]">Followers</p>
                 </Link>
                 <Link
-                  href={`/home?page=following&user_id=${userId}`}
+                  href={`/home?page=following&user_id=${userObj.user.uid}`}
                   className="text-center border-b-[3px] border-[#DBE2EF] hover:border-[#112D4E]"
                 >
                   <p className="font-[700] text-[20px]">
@@ -168,6 +169,7 @@ export default function Home() {
             {currPage === "profile" && (
               <ProfilePage followingUsers={currUser.following} />
             )}
+            {currPage === "account" && <EditAccount email={currUser.email} />}
           </div>
         </div>
       )}
