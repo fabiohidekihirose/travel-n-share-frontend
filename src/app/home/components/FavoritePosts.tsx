@@ -34,7 +34,7 @@ export default function FavoritePosts() {
           />
         ))
       ) : (
-        <div className="text-center p-4 rounded-[10px] bg-[#DBE2EF] w-full text-[#112D4E]">
+        <div className="bg-[#DBE2EF] rounded-[10px] text-center p-4 font-[700] text-[20px]">
           No Favorite Posts Yet
         </div>
       )}

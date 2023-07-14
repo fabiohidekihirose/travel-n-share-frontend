@@ -3,17 +3,13 @@ import { MdLogout } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { AiOutlineSetting } from "react-icons/ai";
 import logOut from "@/firebase/auth/logOut";
-import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/components/AuthContext";
 
 export default function SideMenu() {
-  const router = useRouter();
   const userObj = useAuthContext();
 
   const logoutHandler = async () => {
     await logOut();
-
-    router.push("/");
   };
 
   return (
@@ -26,19 +22,20 @@ export default function SideMenu() {
         <p className="text-[20px]">Profile</p>
       </Link>
       <Link
-        href={"/account"}
+        href={"/home?page=account"}
         className="flex space-x-[10px] items-center hover:bg-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] px-4 py-2 rounded-[10px]"
       >
         <AiOutlineSetting size={25} />
         <p className="text-[20px]">Account</p>
       </Link>
-      <button
+      <Link
+        href={"/"}
         className="flex space-x-[10px] items-center hover:bg-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] px-4 py-2 rounded-[10px]"
         onClick={logoutHandler}
       >
         <MdLogout size={25} />
         <p className="text-[20px]">Log Out</p>
-      </button>
+      </Link>
     </div>
   );
 }

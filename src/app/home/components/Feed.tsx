@@ -25,7 +25,6 @@ export default function Feed({ followingUsers }: FeedProps) {
         { id_list: followingIds }
       );
 
-      console.log(feedPostsData.data);
       setFeedPosts(feedPostsData.data);
     };
 
@@ -33,7 +32,7 @@ export default function Feed({ followingUsers }: FeedProps) {
   }, []);
   return (
     <>
-      {feedPosts.length &&
+      {feedPosts.length ? (
         feedPosts.map((feedPost: PostProps) => (
           <PostCard
             key={feedPost.id}
@@ -44,7 +43,12 @@ export default function Feed({ followingUsers }: FeedProps) {
               ).length
             }
           />
-        ))}
+        ))
+      ) : (
+        <div className="bg-[#DBE2EF] rounded-[10px] text-center p-4 font-[700] text-[20px]">
+          No Posts On Feed Yet
+        </div>
+      )}
     </>
   );
 }

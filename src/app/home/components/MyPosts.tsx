@@ -26,7 +26,7 @@ export default function Posts() {
 
   return (
     <>
-      {posts &&
+      {posts.length ? (
         posts.map((post: PostProps) => {
           const userId = userObj.user.uid;
           return (
@@ -40,7 +40,12 @@ export default function Posts() {
               }
             />
           );
-        })}
+        })
+      ) : (
+        <div className="bg-[#DBE2EF] rounded-[10px] text-center p-4 font-[700] text-[20px]">
+          No Posts Yet
+        </div>
+      )}
     </>
   );
 }
