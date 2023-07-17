@@ -21,6 +21,7 @@ import FavoritePosts from "./components/FavoritePosts";
 import NewPost from "./components/NewPost";
 import ProfilePage from "./components/ProfilePage";
 import EditAccount from "./components/EditAccount";
+import EditProfile from "./components/EditProfile";
 
 export interface UserProps {
   email: string;
@@ -53,6 +54,7 @@ export default function Home() {
       const getUserInfo = async () => {
         const user = await axios.get(`${baseURL}/user/${userObj.user.uid}`);
         setCurrUser(user.data);
+        console.log(user.data);
       };
       getUserInfo();
     }
@@ -170,6 +172,13 @@ export default function Home() {
               <ProfilePage followingUsers={currUser.following} />
             )}
             {currPage === "account" && <EditAccount email={currUser.email} />}
+            {currPage === "edit-profile" && (
+              <EditProfile
+                full_name={currUser.full_name}
+                username={currUser.username}
+                bio={currUser.bio}
+              />
+            )}
           </div>
         </div>
       )}

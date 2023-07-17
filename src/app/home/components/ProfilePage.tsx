@@ -58,7 +58,7 @@ export default function ProfilePage({ followingUsers }: ProfilePageProps) {
 
             {userObj.user.uid === user_id ? (
               <Link
-                href={"/edit-profile"}
+                href={"/home?page=edit-profile"}
                 className="bg-[#112D4E] text-[#DBE2EF] p-2 rounded-[10px] hover:shadow-[0_0_10px_rgb(63,114,175)] hover:bg-[#3F72AF]"
               >
                 Edit profile

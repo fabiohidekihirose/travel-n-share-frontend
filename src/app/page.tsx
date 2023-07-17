@@ -1,7 +1,7 @@
 "use client";
 
 import DescriptionAuth from "@/components/DescriptionAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import signIn from "@/firebase/auth/signIn";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "@/components/AuthContext";
@@ -13,9 +13,11 @@ export default function Login() {
   const userObj = useAuthContext();
   const router = useRouter();
 
-  if (userObj.user) {
-    router.push("/home");
-  }
+  useEffect(() => {
+    if (userObj.user) {
+      router.push("/home");
+    }
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
