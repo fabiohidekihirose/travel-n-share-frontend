@@ -4,12 +4,16 @@ import { CgProfile } from "react-icons/cg";
 import { AiOutlineSetting } from "react-icons/ai";
 import logOut from "@/firebase/auth/logOut";
 import { useAuthContext } from "@/components/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function SideMenu() {
   const userObj = useAuthContext();
+  const router = useRouter();
 
   const logoutHandler = async () => {
     await logOut();
+
+    router.push("/");
   };
 
   return (
