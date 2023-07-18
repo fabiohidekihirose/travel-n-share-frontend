@@ -1,34 +1,109 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<a name="readme-top"></a>
+<br />
+
+<div align="center">
+
+  <h3 align="center">Travel N Share</h3>
+
+  <p align="center">
+   Frontend of Travel N Share, a social network for travellers to connect and share their journeys.
+    <br />
+    <a href="https://github.com/fabiohidekihirose/travel-n-share-frontend"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://github.com/fabiohidekihirose/travel-n-share-backend"><strong>Check out Home Decor Backend</strong></a>
+    <br />
+    <br />
+  </p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
+
+## About The Project
+
+[Travel N Share app](https://travel-n-share.vercel.app/)
+
+Travel N Share is a vibrant social network designed exclusively for adventurous travelers to connect and exchange their remarkable journeys from around the globe. Whether you're a seasoned globetrotter or a novice explorer, Travel N Share provides a platform to share and discover incredible travel experiences. You'll immerse yourself in a supportive community of like-minded travelers, fostering a sense of wanderlust and inspiration as you embark on your own unforgettable adventures.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Built With
+
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
+- [![TypeScript][typescript]][typescript-url]
+- [![NextJS][nextjs]][nextjs-url]
+- [![Vercel][vercel]][vercel-url]
+- [![Firebase][firebase]][firebase-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running follow these simple steps.
+Please keep in mind this repo only includes the frontend, you will also need fork Home Decor's backend repo which can be found here:
+[travel-n-share-backend](https://github.com/fabiohidekihirose/travel-n-share-backend)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### Installation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+_Below you will find the basics on installation and set up._
+_Please note you will need to follow the steps found on [travel-n-share-backend](https://github.com/fabiohidekihirose/travel-n-share-backend) before any deployment can be done._
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repo
+   ```sh
+   git clone https://github.com/your_username_/Project-Name.git
+   ```
+2. Module Installation
+   ```sh
+   npm install
+   ```
+3. Run Client
+   ```sh
+   npm run dev
+   ```
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Features
 
-## Learn More
+- Create an account
+- Personal dashboard
+- Save a post to favorites
+- Create a new post
+- Follow other users
+- Feed
 
-To learn more about Next.js, take a look at the following resources:
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Hideki Hirose - [@fabiohidekihirose](https://github.com/fabiohidekihirose) - fabiohidekihirose@gmail.com
 
-## Deploy on Vercel
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[typescript]: https://img.shields.io/badge/TypeScript-007acc?style=for-the-badge&logo=typescript&logoColor=white
+[typescript-url]: https://www.typescriptlang.org/
+[nextjs]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[nextjs-url]: https://nextjs.org/
+[vercel]: https://img.shields.io/badge/vercel-000000?style=for-the-badge&logo=vercel&logoColor=white
+[vercel-url]: https://vercel.com
+[firebase]: https://img.shields.io/badge/firebase-000000?style=for-the-badge&logo=firebase&logoColor=white
+[firebase-url]: https://firebase.google.com/
