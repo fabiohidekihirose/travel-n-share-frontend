@@ -59,7 +59,7 @@ This section should list any major frameworks/libraries used to bootstrap your p
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
-Please keep in mind this repo only includes the frontend, you will also need fork Home Decor's backend repo which can be found here:
+Please keep in mind this repo only includes the frontend, you will also need fork Travel N Share's backend repo which can be found here:
 [travel-n-share-backend](https://github.com/fabiohidekihirose/travel-n-share-backend)
 
 ### Installation
