@@ -5,10 +5,11 @@ import axios from "axios";
 import { useState } from "react";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { LuTrash } from "react-icons/lu";
+import CommentSection from "./CommentSection";
 import Link from "next/link";
 import moment from "moment";
 
-interface UserProps {
+export interface UserProps {
   id: string;
   username: string;
   image: string;
@@ -20,6 +21,7 @@ export interface PostProps {
   content: string;
   timestamp: Date;
   favorite: [];
+  comment: [];
 }
 
 export interface PostCardProps {
@@ -32,6 +34,7 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
     post.favorite.length
   );
   const [isFavButtonSelected, setIsFavButtonSelected] = useState(isFavorite);
+  const [showComments, setShowComments] = useState(false);
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const userObj = useAuthContext();
 
@@ -40,25 +43,42 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
       setNumFavorites((num) => num - 1);
       setIsFavButtonSelected(false);
 
-      await axios.delete(
-        `${baseURL}/user/${userObj.user.uid}/favorite/${post.id}/delete`
-      );
+      try {
+        await axios.delete(
+          `${baseURL}/user/${userObj.user.uid}/favorite/${post.id}/delete`
+        );
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       setNumFavorites((num) => num + 1);
       setIsFavButtonSelected(true);
 
       const payload = { post_id: post.id, user_id: userObj.user.uid };
-      await axios.post(
-        `${baseURL}/user/${userObj.user.uid}/favorite/create`,
-        payload
-      );
+
+      try {
+        await axios.post(
+          `${baseURL}/user/${userObj.user.uid}/favorite/create`,
+          payload
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
+  const showCommentsHandler = () => {
+    showComments ? setShowComments(false) : setShowComments(true);
+  };
+
   const deleteHandler = async () => {
-    await axios.delete(
-      `${baseURL}/user/${userObj.user.uid}/posts/${post.id}/delete`
-    );
+    try {
+      await axios.delete(
+        `${baseURL}/user/${userObj.user.uid}/posts/${post.id}/delete`
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -93,9 +113,9 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
       <div className="border-b-[1px] border-[#112D4E]"></div>
       <div className="whitespace-pre-wrap">{post.content}</div>
       <div className="border-b-[1px] border-[#112D4E]"></div>
-      <div className="w-full flex">
+      <div className="w-full flex space-x-[2%]">
         <button
-          className={`w-[50%] flex items-center justify-center hover:bg-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] rounded-[10px] p-2 ${
+          className={`w-[49%] flex items-center justify-center hover:bg-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] rounded-[10px] p-2 ${
             isFavButtonSelected
               ? "bg-[#112D4E] text-[#DBE2EF] shadow-[0_0_10px_rgb(17,45,78)]"
               : ""
@@ -105,8 +125,20 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
           <MdOutlineFavoriteBorder className="mr-[10px]" />
           {`${numFavorites} Favorites`}
         </button>
-        <button className="w-[50%] text-center">Comment</button>
+        <button
+          className="w-[49%] text-center hover:bg-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] rounded-[10px] p-2"
+          onClick={showCommentsHandler}
+        >
+          Comment
+        </button>
       </div>
+      {showComments && (
+        <CommentSection
+          key={post.id}
+          comments={post.comment}
+          post_id={post.id}
+        />
+      )}
     </div>
   );
 }

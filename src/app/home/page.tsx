@@ -54,7 +54,6 @@ export default function Home() {
       const getUserInfo = async () => {
         const user = await axios.get(`${baseURL}/user/${userObj.user.uid}`);
         setCurrUser(user.data);
-        console.log(user.data);
       };
       getUserInfo();
     }
