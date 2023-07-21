@@ -23,6 +23,7 @@ import ProfilePage from "./components/ProfilePage";
 import EditAccount from "./components/EditAccount";
 import EditProfile from "./components/EditProfile";
 import ExplorePage from "./components/ExplorePage";
+import MenuMobile from "@/components/MenuMobile";
 
 export interface UserProps {
   email: string;
@@ -75,7 +76,7 @@ export default function Home() {
       {showSideMenu && <SideMenu />}
       {currUser && (
         <div className="flex">
-          <div className="flex flex-col w-[300px] m-[32px] mt-[102px] space-y-[30px] fixed">
+          <div className="flex flex-col w-[300px] m-[32px] mt-[102px] space-y-[30px] lg:fixed max-lg:hidden">
             <div className="bg-[#DBE2EF] h-fit p-4 rounded-[10px] space-y-[20px] shadow-[0_0_10px_rgb(219,226,239)] text-[#112D4E]">
               <div className="flex items-center space-x-[10px]">
                 <img
@@ -160,7 +161,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="w-full mt-[70px] ml-[364px] text-[#112D4E] space-y-[20px] mr-[30px] p-2 pt-8">
+          <div className="w-full mt-[70px] lg:ml-[364px] text-[#112D4E] space-y-[20px] lg:mr-[30px] p-2 pt-8 max-lg:mx-[15px]">
             {(currPage === "feed" || !currPage) && (
               <Feed followingUsers={currUser.following} />
             )}
@@ -185,6 +186,7 @@ export default function Home() {
               <ExplorePage followingUsers={currUser.following} />
             )}
           </div>
+          <MenuMobile />
         </div>
       )}
     </div>

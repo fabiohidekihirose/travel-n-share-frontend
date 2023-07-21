@@ -46,7 +46,7 @@ export default function ProfilePage({ followingUsers }: ProfilePageProps) {
     <>
       {userInfo && (
         <div className="w-full bg-[#DBE2EF] rounded-[10px] p-6 items-center flex flex-col shadow-[0_0_10px_rgb(219,226,239)] space-y-[20px]">
-          <div className="flex space-x-[20px] items-center">
+          <div className="flex max-lg:flex-col space-x-[20px] items-center">
             <img
               src={userInfo.image}
               className="w-[130px] rounded-[50%] border-[2px] border-[#112D4E] shadow-[0_0_10px_rgb(17,45,78)]"
@@ -71,7 +71,7 @@ export default function ProfilePage({ followingUsers }: ProfilePageProps) {
               />
             )}
           </div>
-          <div className="w-[500px]">{userInfo.bio}</div>
+          <div className="lg:w-[500px]">{userInfo.bio}</div>
           <div className="w-[300px] flex justify-between px-2">
             <Link
               href={`/home?page=profile&user_id=${user_id}&section=followers`}

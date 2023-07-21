@@ -22,7 +22,9 @@ export default function Header({
           src="/logo/logo-login.png"
           className="w-[70px] p-2 ml-[30px]"
         ></img>
-        <p className="text-[20px] text-[#DBE2EF] font-[700]">TRAVEL N SHARE</p>
+        <p className="text-[20px] text-[#DBE2EF] font-[700] max-md:hidden">
+          TRAVEL N SHARE
+        </p>
       </Link>
       {/* <input
         type="text"
