@@ -1,7 +1,7 @@
 import { useAuthContext } from "@/components/AuthContext";
 import axios from "axios";
 import Link from "next/link";
-import { UserProps } from "../page";
+import { UserProps } from "../../page";
 
 interface NewPostProps {
   currUser: UserProps;

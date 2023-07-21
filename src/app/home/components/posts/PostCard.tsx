@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { LuTrash } from "react-icons/lu";
-import CommentSection from "./CommentSection";
+import CommentSection from "../comments/CommentSection";
 import Link from "next/link";
 import moment from "moment";
 

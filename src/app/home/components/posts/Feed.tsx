@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import PostCard from "./../components/PostCard";
-import { FollowProps } from "../page";
-import { PostProps } from "./../components/PostCard";
+import PostCard from "./PostCard";
+import { FollowProps } from "../../page";
+import { PostProps } from "./PostCard";
 import { FavProps } from "./MyPosts";
 import axios from "axios";
 import { useAuthContext } from "@/components/AuthContext";

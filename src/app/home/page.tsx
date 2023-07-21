@@ -7,22 +7,22 @@ import {
   BsJournalPlus,
   BsJournalText,
 } from "react-icons/bs";
-import Feed from "./components/Feed";
-import FollowPage from "./components/FollowPage";
-import MyPosts from "./components/MyPosts";
+import Feed from "./components/posts/Feed";
+import FollowPage from "./components/follow/FollowPage";
+import MyPosts from "./components/posts/MyPosts";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import SideMenu from "./components/SideMenu";
+import SideMenu from "../../components/SideMenu";
 import { useAuthContext } from "@/components/AuthContext";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import FavoritePosts from "./components/FavoritePosts";
-import NewPost from "./components/NewPost";
-import ProfilePage from "./components/ProfilePage";
-import EditAccount from "./components/EditAccount";
-import EditProfile from "./components/EditProfile";
-import ExplorePage from "./components/ExplorePage";
+import FavoritePosts from "./components/posts/FavoritePosts";
+import NewPost from "./components/posts/NewPost";
+import ProfilePage from "./components/account/ProfilePage";
+import EditAccount from "./components/account/EditAccount";
+import EditProfile from "./components/account/EditProfile";
+import ExplorePage from "./components/posts/ExplorePage";
 import MenuMobile from "@/components/MenuMobile";
 
 export interface UserProps {

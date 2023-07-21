@@ -1,12 +1,12 @@
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { UserProps } from "../page";
-import { FollowProps } from "../page";
+import { UserProps } from "../../page";
+import { FollowProps } from "../../page";
 import { useAuthContext } from "@/components/AuthContext";
 import Link from "next/link";
-import UserPosts from "./UserPosts";
-import FollowPage from "./FollowPage";
+import UserPosts from "../posts/UserPosts";
+import FollowPage from "../follow/FollowPage";
 import FollowButton from "@/components/FollowButton";
 
 interface ProfilePageProps {

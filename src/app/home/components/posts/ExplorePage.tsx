@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FollowProps } from "../page";
+import { FollowProps } from "../../page";
 import { PostProps } from "./PostCard";
 import { FavProps } from "./MyPosts";
 import { useAuthContext } from "@/components/AuthContext";

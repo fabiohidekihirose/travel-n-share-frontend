@@ -1,6 +1,6 @@
 import { useAuthContext } from "@/components/AuthContext";
 import CommentCard from "./CommentCard";
-import { UserProps } from "./PostCard";
+import { UserProps } from "../posts/PostCard";
 import { useState } from "react";
 import axios from "axios";
 
