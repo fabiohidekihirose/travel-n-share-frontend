@@ -22,6 +22,7 @@ import NewPost from "./components/NewPost";
 import ProfilePage from "./components/ProfilePage";
 import EditAccount from "./components/EditAccount";
 import EditProfile from "./components/EditProfile";
+import ExplorePage from "./components/ExplorePage";
 
 export interface UserProps {
   email: string;
@@ -57,7 +58,9 @@ export default function Home() {
       };
       getUserInfo();
     }
-  }, [currPage, userObj]);
+  }, [userObj]);
+
+  useEffect(() => {}, []);
 
   return (
     <div
@@ -73,7 +76,7 @@ export default function Home() {
       {currUser && (
         <div className="flex">
           <div className="flex flex-col w-[300px] m-[32px] mt-[102px] space-y-[30px] fixed">
-            <div className="bg-[#DBE2EF] h-fit p-4 rounded-[10px] space-y-[20px] w-[300px] shadow-[0_0_10px_rgb(219,226,239)] text-[#112D4E]">
+            <div className="bg-[#DBE2EF] h-fit p-4 rounded-[10px] space-y-[20px] shadow-[0_0_10px_rgb(219,226,239)] text-[#112D4E]">
               <div className="flex items-center space-x-[10px]">
                 <img
                   src={currUser.image}
@@ -127,13 +130,6 @@ export default function Home() {
                 <BsJournalText size={25} />
                 <p className="text-[20px]">Feed</p>
               </Link>
-              {/* <Link
-                href={"/home?page=explore"}
-                className="flex space-x-[10px] items-center border-[1px] border-[#112D4E] hover:border-[#DBE2EF] hover:shadow-[0_0_10px_rgb(219,226,239)] px-4 py-2 rounded-[10px] hover:bg-[#DBE2EF] text-[#DBE2EF] hover:text-[#112D4E] hover:fill-[#112D4E]"
-              >
-                <MdOutlineExplore size={25} />
-                <p className="text-[20px]">Explore</p>
-              </Link> */}
               <Link
                 href={"/home?page=new-post"}
                 className="flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)]"
@@ -147,6 +143,13 @@ export default function Home() {
               >
                 <BsJournalRichtext size={25} />
                 <p className="text-[20px]">My Posts</p>
+              </Link>
+              <Link
+                href={"/home?page=explore"}
+                className="flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)]"
+              >
+                <MdOutlineExplore size={25} />
+                <p className="text-[20px]">Explore</p>
               </Link>
               <Link
                 href={"/home?page=favorite"}
@@ -177,6 +180,9 @@ export default function Home() {
                 username={currUser.username}
                 bio={currUser.bio}
               />
+            )}
+            {currPage === "explore" && (
+              <ExplorePage followingUsers={currUser.following} />
             )}
           </div>
         </div>
