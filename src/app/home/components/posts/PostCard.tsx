@@ -35,6 +35,7 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
   );
   const [isFavButtonSelected, setIsFavButtonSelected] = useState(isFavorite);
   const [showComments, setShowComments] = useState(false);
+  const [showLess, setShowLess] = useState(false);
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const userObj = useAuthContext();
 
@@ -67,11 +68,13 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
     }
   };
 
+  console.log(post);
+
   const showCommentsHandler = () => {
     showComments ? setShowComments(false) : setShowComments(true);
   };
 
-  const deleteHandler = async () => {
+  const deletePostHandler = async () => {
     try {
       await axios.delete(
         `${baseURL}/user/${userObj.user.uid}/posts/${post.id}/delete`
@@ -106,7 +109,7 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
           <LuTrash
             size={20}
             className="mr-[20px] hover:cursor-pointer"
-            onClick={deleteHandler}
+            onClick={deletePostHandler}
           />
         )}
       </div>

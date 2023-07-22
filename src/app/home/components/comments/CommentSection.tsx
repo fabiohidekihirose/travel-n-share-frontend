@@ -20,6 +20,7 @@ export default function CommentSection({
   comments,
   post_id,
 }: CommentSectionProps) {
+  const [commentsList, setCommentsList] = useState(comments);
   const [comment, setComment] = useState("");
   const userObj = useAuthContext();
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -36,10 +37,14 @@ export default function CommentSection({
         post_id,
         content: comment,
       };
-      await axios.post(
+      const newComment = await axios.post(
         `${baseURL}/user/${userObj.userInfo.id}/post/${post_id}/comment/create`,
         payload
       );
+      setCommentsList((prevCommentsList) => [
+        ...prevCommentsList,
+        newComment.data,
+      ]);
       setComment("");
     } catch (error) {
       console.log(error);
@@ -63,8 +68,8 @@ export default function CommentSection({
           Post
         </button>
       </form>
-      {comments.length
-        ? comments.map((comment) => (
+      {commentsList.length
+        ? commentsList.map((comment) => (
             <CommentCard
               key={comment.id}
               image={comment.user.image}
