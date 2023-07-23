@@ -161,7 +161,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="w-full mt-[70px] lg:ml-[364px] text-[#112D4E] space-y-[20px] lg:mr-[30px] p-2 pt-8 max-lg:mx-[15px]">
+          <div className="w-full mt-[70px] max-lg:mb-[70px] lg:ml-[364px] text-[#112D4E] space-y-[20px] lg:mr-[30px] p-2 pt-8 max-lg:mx-[15px]">
             {(currPage === "feed" || !currPage) && (
               <Feed followingUsers={currUser.following} />
             )}

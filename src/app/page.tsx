@@ -55,6 +55,7 @@ export default function Login() {
                 type="email"
                 className="mb-[20px] rounded-[10px] p-2"
                 onChange={handleChange}
+                data-testid={"input-email"}
                 required
               ></input>
               <label>Password</label>
@@ -63,6 +64,7 @@ export default function Login() {
                 type="password"
                 className="rounded-[10px] p-2"
                 onChange={handleChange}
+                data-testid={"input-password"}
                 required
               />
               <a
