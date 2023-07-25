@@ -35,7 +35,8 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
   );
   const [isFavButtonSelected, setIsFavButtonSelected] = useState(isFavorite);
   const [showComments, setShowComments] = useState(false);
-  const [showLess, setShowLess] = useState(false);
+  const [showLess, setShowLess] = useState(true);
+  const [showButtonText, setShowButtonText] = useState("Show More");
   const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   const userObj = useAuthContext();
 
@@ -68,8 +69,6 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
     }
   };
 
-  console.log(post);
-
   const showCommentsHandler = () => {
     showComments ? setShowComments(false) : setShowComments(true);
   };
@@ -81,6 +80,16 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
       );
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const showMoreOrLessHandler = () => {
+    if (showLess) {
+      setShowLess(false);
+      setShowButtonText("Show Less");
+    } else {
+      setShowLess(true);
+      setShowButtonText("Show More");
     }
   };
 
@@ -114,7 +123,14 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
         )}
       </div>
       <div className="border-b-[1px] border-[#112D4E]"></div>
-      <div className="whitespace-pre-wrap">{post.content}</div>
+      <div
+        className={`whitespace-pre-wrap ${showLess ? "line-clamp-[10]" : ""}`}
+      >
+        {post.content}
+      </div>
+      <button className="underline" onClick={showMoreOrLessHandler}>
+        {showButtonText}
+      </button>
       <div className="border-b-[1px] border-[#112D4E]"></div>
       <div className="w-full flex space-x-[2%]">
         <button
