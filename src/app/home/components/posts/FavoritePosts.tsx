@@ -23,7 +23,6 @@ export default function FavoritePosts() {
     getFavPosts();
   }, []);
 
-  console.log(favPosts);
   return (
     <>
       {favPosts.length ? (

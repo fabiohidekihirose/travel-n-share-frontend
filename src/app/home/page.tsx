@@ -61,8 +61,6 @@ export default function Home() {
     }
   }, [userObj]);
 
-  useEffect(() => {}, []);
-
   return (
     <div
       className="h-full bg-[#112D4E]"
@@ -114,6 +112,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href={"/home?page=my-posts"}
+                  data-testid={"posts-button"}
                   className="text-center border-b-[3px] border-[#DBE2EF] hover:border-[#112D4E]"
                 >
                   <p className="font-[700] text-[20px]">
@@ -126,35 +125,50 @@ export default function Home() {
             <div className="flex flex-col p-4 space-y-[10px] bg-[#DBE2EF] rounded-[10px] shadow-[0_0_10px_rgb(219,226,239)]">
               <Link
                 href={"/home?page=feed"}
-                className="flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)]"
+                className={`flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] ${
+                  currPage === "feed" &&
+                  "shadow-[0_0_10px_rgb(17,45,78)] text-[#DBE2EF] bg-[#112D4E]"
+                }`}
               >
                 <BsJournalText size={25} />
                 <p className="text-[20px]">Feed</p>
               </Link>
               <Link
                 href={"/home?page=new-post"}
-                className="flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)]"
+                className={`flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] ${
+                  currPage === "new-post" &&
+                  "shadow-[0_0_10px_rgb(17,45,78)] text-[#DBE2EF] bg-[#112D4E]"
+                }`}
               >
                 <BsJournalPlus size={25} />
                 <p className="text-[20px]">New Post</p>
               </Link>
               <Link
                 href={"/home?page=my-posts"}
-                className="flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)]"
+                className={`flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] ${
+                  currPage === "my-posts" &&
+                  "shadow-[0_0_10px_rgb(17,45,78)] text-[#DBE2EF] bg-[#112D4E]"
+                }`}
               >
                 <BsJournalRichtext size={25} />
                 <p className="text-[20px]">My Posts</p>
               </Link>
               <Link
                 href={"/home?page=explore"}
-                className="flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)]"
+                className={`flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] ${
+                  currPage === "explore" &&
+                  "shadow-[0_0_10px_rgb(17,45,78)] text-[#DBE2EF] bg-[#112D4E]"
+                }`}
               >
                 <MdOutlineExplore size={25} />
                 <p className="text-[20px]">Explore</p>
               </Link>
               <Link
                 href={"/home?page=favorite"}
-                className="flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)]"
+                className={`flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] ${
+                  currPage === "favorite" &&
+                  "shadow-[0_0_10px_rgb(17,45,78)] text-[#DBE2EF] bg-[#112D4E]"
+                }`}
               >
                 <MdOutlineFavoriteBorder size={25} />
                 <p className="text-[20px]">Favorite</p>
@@ -163,12 +177,12 @@ export default function Home() {
           </div>
           <div className="w-full mt-[70px] max-lg:mb-[70px] lg:ml-[364px] text-[#112D4E] space-y-[20px] lg:mr-[30px] p-2 pt-8 max-lg:mx-[15px]">
             {(currPage === "feed" || !currPage) && (
-              <Feed followingUsers={currUser.following} />
+              <Feed followingUsers={currUser.following} data-testid={"feed"} />
             )}
             {(currPage === "followers" || currPage === "following") && (
               <FollowPage />
             )}
-            {currPage === "my-posts" && <MyPosts />}
+            {currPage === "my-posts" && <MyPosts data-testid={"my-posts"} />}
             {currPage === "favorite" && <FavoritePosts />}
             {currPage === "new-post" && <NewPost currUser={currUser} />}
             {currPage === "profile" && (
