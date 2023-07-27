@@ -94,7 +94,7 @@ export default function PostCard({ post, isFavorite }: PostCardProps) {
   };
 
   return (
-    <div className="flex flex-col space-y-[10px] bg-[#DBE2EF] p-6 pb-4 rounded-[10px] shadow-[0_0_10px_rgb(219,226,239)]">
+    <div className="flex flex-col space-y-[10px] bg-[#DBE2EF] p-6 pb-4 rounded-[10px]">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-[10px]">
           <img

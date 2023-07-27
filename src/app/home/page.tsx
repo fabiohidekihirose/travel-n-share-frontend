@@ -75,7 +75,7 @@ export default function Home() {
       {currUser && (
         <div className="flex">
           <div className="flex flex-col w-[300px] m-[32px] mt-[102px] space-y-[30px] lg:fixed max-lg:hidden">
-            <div className="bg-[#DBE2EF] h-fit p-4 rounded-[10px] space-y-[20px] shadow-[0_0_10px_rgb(219,226,239)] text-[#112D4E]">
+            <div className="bg-[#DBE2EF] h-fit p-4 rounded-[10px] space-y-[20px] text-[#112D4E]">
               <div className="flex items-center space-x-[10px]">
                 <img
                   src={currUser.image}
@@ -122,11 +122,11 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-            <div className="flex flex-col p-4 space-y-[10px] bg-[#DBE2EF] rounded-[10px] shadow-[0_0_10px_rgb(219,226,239)]">
+            <div className="flex flex-col p-4 space-y-[10px] bg-[#DBE2EF] rounded-[10px]">
               <Link
                 href={"/home?page=feed"}
                 className={`flex space-x-[10px] items-center px-4 py-2 rounded-[10px] hover:bg-[#112D4E] text-[#112D4E] hover:text-[#DBE2EF] hover:shadow-[0_0_10px_rgb(17,45,78)] ${
-                  currPage === "feed" &&
+                  (currPage === "feed" || !currPage) &&
                   "shadow-[0_0_10px_rgb(17,45,78)] text-[#DBE2EF] bg-[#112D4E]"
                 }`}
               >

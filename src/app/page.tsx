@@ -45,7 +45,7 @@ export default function Login() {
       {userObj.user ? null : (
         <>
           <DescriptionAuth />
-          <div className="border-[1px] max-lg:my-[50px] p-10 m-auto rounded-[10px] bg-[#DBE2EF] shadow-[0_0_30px_rgb(63,114,175)] max-w-[400px]">
+          <div className="border-[1px] max-lg:my-[50px] p-10 m-auto rounded-[10px] bg-[#DBE2EF] max-w-[400px]">
             <h1 className="font-[600] text-[40px]">Welcome Back!</h1>
             <h2 className="mb-[20px]">Please, enter your details to login</h2>
             <form className="flex flex-col" onSubmit={handleForm}>

@@ -50,7 +50,7 @@ export default function SignUp() {
   return (
     <div className="flex max-lg:flex-col min-h-screen items-center bg-[#112D4E] text-[#112D4E]">
       <DescriptionAuth />
-      <div className="border-[1px] max-lg:mt-[50px] p-10 lg:mt-[34px] m-auto mb-[50px] rounded-[10px] bg-[#DBE2EF] shadow-[0_0_30px_rgb(63,114,175)] max-w-[400px]">
+      <div className="border-[1px] max-lg:mt-[50px] p-10 lg:mt-[34px] m-auto mb-[50px] rounded-[10px] bg-[#DBE2EF] max-w-[400px]">
         <h1 className="font-[600] text-[40px]">Sign Up</h1>
         <h2 className="mb-[20px]">Create an account to use Travel N Share</h2>
         <form className="flex flex-col" onSubmit={handleForm}>

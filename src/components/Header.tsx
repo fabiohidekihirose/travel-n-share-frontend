@@ -16,7 +16,7 @@ export default function Header({
   };
 
   return (
-    <div className="w-full bg-[#112D4E] flex items-center justify-between border-b-[1px] shadow-[0_0_10px_rgb(219,226,239)] fixed">
+    <div className="w-full bg-[#112D4E] flex items-center justify-between border-b-[1px] fixed">
       <Link href={"/home"} className="flex items-center">
         <img
           src="/logo/logo-login.png"
@@ -33,7 +33,7 @@ export default function Header({
       /> */}
       <img
         src={profile}
-        className="w-[40px] rounded-[50%] mr-[40px] hover:cursor-pointer shadow-[0_0_10px_rgb(219,226,239)]"
+        className="w-[40px] rounded-[50%] mr-[40px] hover:cursor-pointer"
         onClick={clickHandler}
       ></img>
     </div>
