@@ -16,7 +16,7 @@ export default function MenuMobile() {
       <Link
         href={"/home?page=feed"}
         className={`flex flex-col items-center w-[20%] py-2 rounded-[10px] text-[#112D4E] ${
-          currPage === "feed" &&
+          (currPage === "feed" || !currPage) &&
           "text-[#DBE2EF] shadow-[0_0_10px_rgb(17,45,78)] bg-[#112D4E]"
         }`}
       >

@@ -50,7 +50,11 @@ export const AuthContextProvider = ({ children }: AuthContextProps) => {
 
   return (
     <AuthContext.Provider value={{ user, userInfo }}>
-      {loading ? <div>Loading...</div> : children}
+      {loading ? (
+        <div className="animate-[spin_1s_linear_infinite] w-[120px] h-[120px] rounded-[50%] border-[16px] border-[#f3f3f3] border-t-[16px] border-t-[#112D4E] mx-auto max-lg:mt-[50%] mt-[20%]"></div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };
