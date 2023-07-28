@@ -90,6 +90,15 @@ _Please note you will need to follow the steps found on [travel-n-share-backend]
 - Create a new post
 - Follow other users
 - Feed
+- Comment on posts
+- Explore section
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Demo Account
+
+- Email: james_brown@gmail.com
+- Password: james123
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
