@@ -45,7 +45,7 @@ export default function ProfilePage({ followingUsers }: ProfilePageProps) {
   return (
     <>
       {userInfo && (
-        <div className="w-full bg-[#DBE2EF] rounded-[10px] p-6 items-center flex flex-col shadow-[0_0_10px_rgb(219,226,239)] space-y-[20px]">
+        <div className="w-full bg-[#DBE2EF] rounded-[10px] p-6 items-center flex flex-col space-y-[20px]">
           <div className="flex max-lg:flex-col space-x-[20px] items-center">
             <img
               src={userInfo.image}
